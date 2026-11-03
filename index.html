@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Steampunk Lampe</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Ručno izrađene steampunk lampe – autor i proizvođač Maljukan Nebojša.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Courier+Prime:wght@400;700&display=swap&subset=latin-ext">
+<style>
+/* Layout: dark workshop ground, brass hairline frames, compact split hero, masonry catalogue, text bands */
+:root{
+  --soot:#120e0b;        /* page ground */
+  --iron:#1d1712;        /* raised panels */
+  --rivet:#2c231b;       /* borders on panels */
+  --brass:#c99a52;       /* main accent */
+  --brass-hi:#e8c27f;    /* hover / glow */
+  --copper:#b8643a;      /* secondary accent */
+  --filament:#ff9d3c;    /* bulb glow, used sparingly */
+  --parchment:#ece0c8;   /* body text */
+  --ash:#a8987f;         /* muted text */
+  --f-display:"Cinzel","Trajan Pro",Georgia,serif;
+  --f-body:"Cormorant Garamond",Garamond,Georgia,serif;
+  --f-mono:"Courier Prime","Courier New",monospace;
+  --wrap:1180px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{
+  background:var(--soot);
+  color:var(--parchment);
+  font-family:var(--f-body);
+  font-size:1.2rem;
+  line-height:1.6;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 75% 0%, rgba(255,157,60,.10), transparent 70%),
+    radial-gradient(ellipse 50% 50% at 0% 100%, rgba(184,100,58,.08), transparent 70%);
+  background-attachment:fixed;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--soot)}
+a{color:var(--brass-hi)}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;text-wrap:balance;line-height:1.15;margin:0;letter-spacing:.04em}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--copper);margin:0}
+:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
+
+/* ---------- header ---------- */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(18,14,11,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--rivet)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:8px;position:relative}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--parchment)}
+.brand img{height:56px;width:auto}
+.brand b{font-family:var(--f-display);font-size:1rem;letter-spacing:.12em;display:block;line-height:1.1}
+.brand small{font-family:var(--f-mono);font-size:.65rem;letter-spacing:.2em;color:var(--brass);text-transform:uppercase}
+nav{display:flex;align-items:center;gap:4px}
+nav a{font-family:var(--f-mono);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);text-decoration:none;padding:8px 12px;border:1px solid transparent;transition:color .2s,border-color .2s}
+nav a:hover{color:var(--brass-hi)}
+nav a[aria-current="page"]{color:var(--brass-hi);border-color:var(--rivet)}
+.lang{display:flex;border:1px solid var(--brass);margin-left:10px}
+.lang button{background:none;border:0;color:var(--brass);font-family:var(--f-mono);font-size:.75rem;letter-spacing:.1em;padding:6px 9px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--brass);color:var(--soot)}
+.burger{display:none;background:none;border:1px solid var(--rivet);color:var(--brass);padding:8px 10px;cursor:pointer;font-family:var(--f-mono)}
+@media (max-width:860px){
+  .burger{display:block}
+  .brand small{display:none}
+  nav{position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;background:var(--iron);border-bottom:1px solid var(--rivet);padding:8px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px));display:none}
+  nav.open{display:flex}
+  .lang{margin:10px 0 0;align-self:flex-start}
+}
+
+/* ---------- shared ---------- */
+section{padding-block:clamp(48px,7vw,88px)}
+.rule{display:flex;align-items:center;gap:14px;color:var(--brass);margin-block:18px 24px}
+.rule::before,.rule::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--brass),transparent)}
+.rule svg{width:22px;height:22px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;padding:13px 20px;border:1px solid var(--brass);color:var(--soot);background:linear-gradient(180deg,var(--brass-hi),var(--brass));cursor:pointer;transition:filter .2s,box-shadow .2s}
+.btn:hover{filter:brightness(1.08);box-shadow:0 0 24px rgba(255,157,60,.25)}
+.btn.ghost{background:transparent;color:var(--brass-hi)}
+.btn.ghost:hover{background:rgba(201,154,82,.1)}
+.head{max-width:720px}
+.head h2{font-size:clamp(1.8rem,3.6vw,2.6rem);margin-top:10px}
+.head p{color:var(--ash);margin:14px 0 0}
+.glow{font-family:var(--f-body);font-style:italic;color:var(--filament);text-shadow:0 0 18px rgba(255,157,60,.55),0 0 42px rgba(255,157,60,.25)}
+.frame{position:relative;padding:12px;border:1px solid var(--brass);background:var(--iron);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(255,157,60,.08)}
+.frame::before{content:"";position:absolute;inset:5px;border:1px solid var(--rivet);pointer-events:none}
+.frame img{width:100%;aspect-ratio:2/3;object-fit:cover}
+.rivets i{position:absolute;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--brass-hi),var(--copper) 70%)}
+.rivets i:nth-child(1){top:-5px;left:-5px}.rivets i:nth-child(2){top:-5px;right:-5px}.rivets i:nth-child(3){bottom:-5px;left:-5px}.rivets i:nth-child(4){bottom:-5px;right:-5px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;padding-block:clamp(32px,5vw,64px)}
+.hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(28px,5vw,64px);align-items:center}
+.hero-grid>*{min-width:0}
+.hero h1{font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1.05;letter-spacing:.06em;margin-top:12px}
+.hero h1 span{color:var(--brass);background:linear-gradient(180deg,var(--brass-hi),var(--copper));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero .lead{font-size:clamp(1.2rem,2vw,1.45rem);font-style:italic;margin:12px 0 6px;color:var(--parchment)}
+.hero .author{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.12em;color:var(--ash);text-transform:uppercase;margin:0}
+.hero .author b{color:var(--brass-hi);font-weight:400}
+.hero .glow{font-size:clamp(1.5rem,2.6vw,2rem);margin:22px 0 0;line-height:1.2}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero-photo{max-width:340px;justify-self:end;width:100%}
+.cog{position:absolute;color:var(--brass);opacity:.06;pointer-events:none}
+.cog.a{width:300px;height:300px;left:-120px;bottom:-150px;animation:spin 90s linear infinite}
+.cog.b{width:160px;height:160px;left:110px;bottom:-60px;animation:spin 60s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.cog{animation:none}html{scroll-behavior:auto}}
+@media (max-width:760px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-photo{max-width:300px;justify-self:center}
+}
+
+/* ---------- home: where / preview / motto ---------- */
+.band{background:var(--iron);border-block:1px solid var(--rivet)}
+.where p{max-width:62ch}
+.preview{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.preview a{display:block;border:1px solid var(--rivet);background:var(--iron);padding:6px;transition:border-color .25s}
+.preview a:hover{border-color:var(--brass)}
+.preview img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.preview-foot{margin-top:24px}
+@media (max-width:560px){.preview{grid-template-columns:repeat(2,1fr)}.preview a:nth-child(3){display:none}}
+.motto{text-align:center}
+.motto .sig{font-family:var(--f-mono);letter-spacing:.2em;text-transform:uppercase;font-size:.85rem;color:var(--brass);margin:0}
+.motto blockquote{margin:0 auto;font-family:var(--f-display);font-size:clamp(1.3rem,3vw,2.1rem);line-height:1.35;max-width:24ch;text-wrap:balance}
+.motto .glow{display:inline-block;margin-top:24px;font-size:clamp(1.6rem,3vw,2.2rem)}
+
+/* ---------- about page ---------- */
+.about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,6vw,80px);align-items:start}
+.about-grid>*{min-width:0}
+.about-photo{position:sticky;top:110px}
+.about h2{font-size:clamp(2rem,4vw,3rem);margin-top:10px}
+.about .lead{font-size:1.4rem;font-style:italic;margin:10px 0 4px}
+.about .author{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.12em;color:var(--ash);text-transform:uppercase;margin:0 0 28px}
+.about .author b{color:var(--brass-hi);font-weight:400}
+.about p.txt{margin:0 0 1.1em;max-width:62ch}
+.about p.txt:first-of-type::first-letter{font-family:var(--f-display);float:left;font-size:3.4em;line-height:.85;padding:6px 10px 0 0;color:var(--brass)}
+.closing{margin-top:34px;padding-top:26px;border-top:1px solid var(--rivet)}
+.closing .sig{font-family:var(--f-mono);letter-spacing:.18em;text-transform:uppercase;font-size:.8rem;color:var(--brass);margin:0 0 10px}
+.closing .m{font-family:var(--f-display);font-size:1.25rem;line-height:1.4;margin:0}
+.closing .glow{font-size:1.9rem;margin:16px 0 0}
+@media (max-width:820px){.about-grid{grid-template-columns:1fr}.about-photo{position:static;max-width:340px}}
+
+/* ---------- catalog ---------- */
+.price-note{display:inline-flex;align-items:center;gap:10px;margin-top:20px;font-family:var(--f-mono);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-hi);border:1px dashed var(--brass);padding:8px 14px}
+.price-note svg{width:16px;height:16px}
+.masonry{columns:3 280px;column-gap:22px;margin-top:40px}
+.item{break-inside:avoid;margin:0 0 22px;border:1px solid var(--rivet);background:var(--iron);transition:border-color .25s}
+.item:hover{border-color:var(--brass)}
+.item button.zoom{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
+.item img{width:100%;height:auto}
+.item .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;flex-wrap:wrap}
+.item .no{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.14em;color:var(--brass)}
+.item .btn{font-size:.7rem;padding:9px 12px;letter-spacing:.12em}
+@media (max-width:600px){.masonry{columns:2;column-gap:12px}.item{margin-bottom:12px}.item .foot{padding:10px}.item .btn{width:100%;justify-content:center;padding:9px 6px;font-size:.66rem}}
+.lightbox{position:fixed;inset:0;z-index:80;background:rgba(10,8,6,.95);display:grid;place-items:center;padding:max(24px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(24px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lightbox img{max-height:88vh;width:auto;border:1px solid var(--brass)}
+.lightbox button{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:calc(14px + env(safe-area-inset-right,0px));background:var(--soot);border:1px solid var(--brass);color:var(--brass-hi);font-family:var(--f-mono);padding:8px 12px;cursor:pointer}
+
+/* ---------- contact ---------- */
+.contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,6vw,72px);margin-top:40px;align-items:start}
+.contact-grid>*{min-width:0}
+.channels{display:flex;flex-direction:column;gap:14px}
+.channel{display:flex;gap:16px;align-items:center;padding:18px;border:1px solid var(--rivet);background:var(--iron);text-decoration:none;color:var(--parchment)}
+a.channel:hover{border-color:var(--brass)}
+.channel svg{width:28px;height:28px;color:var(--brass);flex:none}
+.channel small{display:block;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ash)}
+.channel span{font-size:1.15rem;overflow-wrap:anywhere}
+form{background:var(--iron);border:1px solid var(--brass);padding:clamp(20px,4vw,34px);display:grid;gap:18px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:560px){.row{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-family:var(--f-mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brass)}
+input,textarea{font-family:var(--f-body);font-size:1.15rem;text-transform:none;letter-spacing:0;color:var(--parchment);background:var(--soot);border:1px solid var(--rivet);padding:12px 14px;width:100%}
+input:focus,textarea:focus{outline:none;border-color:var(--brass-hi);box-shadow:0 0 0 3px rgba(201,154,82,.18)}
+textarea{min-height:150px;resize:vertical}
+.form-status{margin:0;font-size:1.05rem}
+.form-status.ok{color:var(--brass-hi)}
+.form-status.err{color:#e58b6b}
+@media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
+
+/* ---------- privacy ---------- */
+.legal{max-width:760px}
+.legal h2{font-size:clamp(1.8rem,3.6vw,2.4rem);margin:10px 0 6px}
+.legal .upd{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);margin:0 0 28px}
+.legal h3{font-size:1.1rem;font-weight:500;color:var(--brass-hi);margin:30px 0 8px;letter-spacing:.06em}
+.legal p,.legal li{margin:0 0 .7em;max-width:66ch}
+.legal ul{padding-left:1.2em;margin:0 0 .7em}
+.consent{margin:0;font-size:1rem;color:var(--ash)}
+.foot-links{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
+.foot-links a.plain{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ash);text-decoration:none}
+.foot-links a.plain:hover{color:var(--brass-hi)}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--rivet);padding-block:36px}
+.foot-row{display:flex;flex-wrap:wrap;gap:20px 28px;align-items:center;justify-content:space-between}
+.foot-brand{display:flex;align-items:center;gap:16px}
+.foot-brand img{height:96px;width:auto}
+.foot-row p{margin:0;color:var(--ash);font-size:1rem}
+.foot-row .mono{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="gear" viewBox="0 0 100 100">
+      <path fill="currentColor" fill-rule="evenodd" d="M44 4h12l2 11a36 36 0 0 1 9 4l9-7 9 9-7 9a36 36 0 0 1 4 9l11 2v12l-11 2a36 36 0 0 1-4 9l7 9-9 9-9-7a36 36 0 0 1-9 4l-2 11H44l-2-11a36 36 0 0 1-9-4l-9 7-9-9 7-9a36 36 0 0 1-4-9L7 56V44l11-2a36 36 0 0 1 4-9l-7-9 9-9 9 7a36 36 0 0 1 9-4zM50 34a16 16 0 1 0 0 32 16 16 0 0 0 0-32z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#pocetna">
+      <img src="/logo.png" alt="Steampunk Lampe logo">
+      <span><b>Steampunk Lampe</b><small>Maljukan Nebojša</small></span>
+    </a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu">☰ <span data-t="menu">Meni</span></button>
+    <nav id="menu">
+      <a href="#pocetna" data-go="pocetna" data-t="nav_home">Početna</a>
+      <a href="#katalog" data-go="katalog" data-t="nav_catalog">Katalog</a>
+      <a href="#o-lampama" data-go="o-lampama" data-t="nav_about">O lampama</a>
+      <a href="#kontakt" data-go="kontakt" data-t="nav_contact">Kontakt</a>
+      <div class="lang" role="group" aria-label="Jezik / Language">
+        <button type="button" id="lang-sr" data-lang="sr" aria-pressed="true">SR</button>
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ================= POČETNA ================= -->
+<div class="page" id="page-pocetna">
+  <section class="hero">
+    <svg class="cog a" aria-hidden="true"><use href="#gear"/></svg>
+    <svg class="cog b" aria-hidden="true"><use href="#gear"/></svg>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow" data-t="hero_eyebrow">Ručni rad · Unikatni komadi</p>
+        <h1>Steampunk <span data-t="hero_lamps">Lampe</span></h1>
+        <p class="lead" data-t="hero_lead">Ručno izrađene lampe sa karakterom</p>
+        <p class="author"><span data-t="hero_author">Autor i proizvođač:</span> <b>Maljukan Nebojša</b></p>
+        <p class="glow" data-t="light">Upali drugačije svetlo!</p>
+        <div class="ctas">
+          <a class="btn" href="#katalog"><span data-t="cta_catalog">Pogledaj katalog</span> →</a>
+          <a class="btn ghost" href="#kontakt" data-t="cta_contact">Pošalji upit</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <div class="frame">
+          <div class="rivets"><i></i><i></i><i></i><i></i></div>
+          <img src="/naslovna.jpg" alt="Steampunk lampa sa termometrom, dve sijalice sa spiralnim vlaknom i drvenim kućištem okovanim metalom" data-t-alt="hero_alt">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band where">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow" data-t="spaces_eyebrow">Gde pristaju</p>
+        <h2 data-t="spaces_title">Industrijski šarm, toplina i doza retro-futurizma</h2>
+        <p data-t="p3">Idealne su za domove, kancelarije, restorane, kafiće, radionice i sve prostore kojima želite da dodate industrijski šarm, toplinu i dozu retro-futurističkog stila.</p>
+      </div>
+      <div class="preview">
+        <a href="#katalog"><img src="/lampa-09.jpg" alt="" loading="lazy"></a>
+        <a href="#katalog"><img src="/lampa-05.jpg" alt="" loading="lazy"></a>
+        <a href="#katalog"><img src="/lampa-02.jpg" alt="" loading="lazy"></a>
+      </div>
+      <div class="preview-foot"><a class="btn ghost" href="#katalog"><span data-t="cta_catalog">Pogledaj katalog</span> →</a></div>
+    </div>
+  </section>
+
+  <section class="motto">
+    <div class="wrap">
+      <p class="sig">Steampunk Lampe – Maljukan Nebojša</p>
+      <div class="rule"><svg aria-hidden="true"><use href="#gear"/></svg></div>
+      <blockquote data-t="motto">Ručno izrađeno. Jedinstveno osmišljeno. Stvoreno da privuče pogled.</blockquote>
+      <p class="glow" data-t="light">Upali drugačije svetlo!</p>
+    </div>
+  </section>
+</div>
+
+<!-- ================= KATALOG ================= -->
+<div class="page" id="page-katalog" hidden>
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow" data-t="cat_eyebrow">Katalog</p>
+        <h2 data-t="cat_title">Lampe iz radionice</h2>
+        <span class="price-note"><svg aria-hidden="true"><use href="#gear"/></svg><span data-t="price_note">Cena na upit</span></span>
+      </div>
+      <div class="masonry" id="catalog"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= O LAMPAMA ================= -->
+<div class="page about" id="page-o-lampama" hidden>
+  <section>
+    <div class="wrap about-grid">
+      <div class="about-photo">
+        <div class="frame">
+          <div class="rivets"><i></i><i></i><i></i><i></i></div>
+          <img src="/lampa-03.jpg" alt="Podna steampunk lampa sa bakarnim cevima i natpisom STEAMPUNK" data-t-alt="about_alt">
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow" data-t="about_eyebrow">O lampama i autoru</p>
+        <h2>Steampunk <span data-t="hero_lamps">Lampe</span></h2>
+        <p class="lead" data-t="hero_lead">Ručno izrađene lampe sa karakterom</p>
+        <p class="author"><span data-t="hero_author">Autor i proizvođač:</span> <b>Maljukan Nebojša</b></p>
+        <p class="txt" data-t="p1">Steampunk lampe predstavljaju spoj industrijskog dizajna, umetnosti i duha prošlih vremena. Svaka lampa nastaje ručnim radom, uz pažljivo odabrane materijale, metalne cevi, zupčanike, lance, opruge i druge autentične detalje koji joj daju poseban karakter.</p>
+        <p class="txt" data-t="p2">Moje lampe nisu samo izvor svetlosti — one su unikatni dekorativni predmeti koji pričaju svoju priču. Svaka je drugačija, originalna i izrađena sa posebnom pažnjom, namenjena ljudima koji cene kreativnost, ručni rad i nesvakidašnji dizajn.</p>
+        <p class="txt" data-t="p3">Idealne su za domove, kancelarije, restorane, kafiće, radionice i sve prostore kojima želite da dodate industrijski šarm, toplinu i dozu retro-futurističkog stila.</p>
+        <div class="closing">
+          <p class="sig">Steampunk Lampe – Maljukan Nebojša</p>
+          <p class="m" data-t="motto">Ručno izrađeno. Jedinstveno osmišljeno. Stvoreno da privuče pogled.</p>
+          <p class="glow" data-t="light">Upali drugačije svetlo!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= KONTAKT ================= -->
+<div class="page" id="page-kontakt" hidden>
+  <section>
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow" data-t="con_eyebrow">Kontakt</p>
+        <h2 data-t="con_title">Pišite mi</h2>
+        <p data-t="con_text">Za upit o lampi, ceni ili izradi, pošaljite poruku preko forme ili me kontaktirajte na Instagramu.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="channels">
+          <a class="channel" id="ig-link" href="https://www.instagram.com/steampunklampe/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor"/></svg>
+            <div><small>Instagram</small><span id="ig-handle">@steampunklampe</span></div>
+          </a>
+          <div class="channel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <div><small>Email</small><span>nebojsamaljukan@gmail.com</span></div>
+          </div>
+        </div>
+        <form id="contact-form" novalidate>
+          <div class="row">
+            <label for="f-name"><span data-t="f_name">Ime i prezime</span><input id="f-name" name="name" required autocomplete="name"></label>
+            <label for="f-email"><span>Email</span><input id="f-email" name="email" type="email" required autocomplete="email"></label>
+          </div>
+          <label for="f-lamp"><span data-t="f_lamp">Lampa (opciono)</span><input id="f-lamp" name="lampa"></label>
+          <label for="f-msg"><span data-t="f_msg">Poruka</span><textarea id="f-msg" name="message" required></textarea></label>
+          <p class="consent"><span data-t="consent">Slanjem poruke prihvatate da vaše podatke koristim samo za odgovor na upit, u skladu sa</span> <a href="#privatnost" data-t="privacy_link">Politikom privatnosti</a>.</p>
+          <div><button class="btn" type="submit" id="f-send"><span data-t="f_send">Pošalji poruku</span> →</button></div>
+          <p class="form-status" id="f-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= POLITIKA PRIVATNOSTI ================= -->
+<div class="page" id="page-privatnost" hidden>
+  <section>
+    <div class="wrap legal">
+      <div data-only="sr">
+        <p class="eyebrow">Pravne informacije</p>
+        <h2>Politika privatnosti</h2>
+        <p class="upd">Važi od 3. novembra 2026.</p>
+
+        <p>Ova politika objašnjava koje podatke o ličnosti prikuplja sajt Steampunk Lampe, zašto ih prikuplja i koja prava imate. Podaci se obrađuju u skladu sa Zakonom o zaštiti podataka o ličnosti Republike Srbije („Službeni glasnik RS“, br. 87/2018).</p>
+
+        <h3>Rukovalac podacima</h3>
+        <p>Maljukan Nebojša, autor i proizvođač Steampunk lampi.<br>Email: nebojsamaljukan@gmail.com</p>
+
+        <h3>Koje podatke prikupljam</h3>
+        <p>Kada pošaljete poruku preko kontakt forme, prikupljam:</p>
+        <ul>
+          <li>ime i prezime,</li>
+          <li>email adresu,</li>
+          <li>naziv ili broj lampe za koju se interesujete (ako ga upišete),</li>
+          <li>sadržaj poruke.</li>
+        </ul>
+        <p>Sajt ne traži broj telefona, adresu ni podatke o plaćanju. Molim vas da u poruku ne upisujete podatke koji nisu potrebni za upit.</p>
+
+        <h3>Zašto ih koristim</h3>
+        <p>Podatke koristim isključivo da odgovorim na vaš upit i, ako se dogovorimo, radi dogovora o kupovini ili izradi lampe. Ne koristim ih za reklamne poruke, ne prodajem ih i ne ustupam trećim licima radi marketinga. Pravni osnov obrade je vaš pristanak, koji dajete slanjem poruke, i preduzimanje radnji na vaš zahtev pre eventualne kupovine.</p>
+
+        <h3>Ko još ima pristup podacima</h3>
+        <p>Kontakt forma radi preko servisa FormSubmit (formsubmit.co), koji vašu poruku prosleđuje na moju Gmail adresu (Google). Ovi servisi podatke obrađuju samo radi dostave poruke. Sajt koristi i Google Fonts za prikaz slova, pri čemu vaš pregledač Google-u šalje IP adresu. Servisi Google i FormSubmit mogu da čuvaju podatke na serverima van Srbije, uz zaštitne mere koje ti servisi primenjuju.</p>
+
+        <h3>Koliko dugo čuvam podatke</h3>
+        <p>Poruke čuvam onoliko koliko je potrebno da se upit reši i eventualna kupovina završi, a najduže dve godine od poslednje prepiske. Posle toga ih brišem. Ranije brisanje možete zatražiti u svakom trenutku.</p>
+
+        <h3>Kolačići i lokalno skladište</h3>
+        <p>Sajt ne koristi kolačiće za praćenje ni analitiku. U vašem pregledaču pamti se samo izabrani jezik sajta (srpski ili engleski), i to ostaje samo na vašem uređaju.</p>
+
+        <h3>Vaša prava</h3>
+        <p>Imate pravo da zatražite uvid u svoje podatke, njihovu ispravku ili brisanje, ograničenje obrade, kao i da povučete pristanak i uložite prigovor na obradu. Zahtev pošaljite na nebojsamaljukan@gmail.com. Ako smatrate da su vaši podaci obrađeni suprotno zakonu, možete podneti pritužbu Povereniku za informacije od javnog značaja i zaštitu podataka o ličnosti (www.poverenik.rs).</p>
+
+        <h3>Izmene</h3>
+        <p>Ova politika može biti izmenjena. Važeća verzija je uvek objavljena na ovoj stranici, sa datumom od kada važi.</p>
+      </div>
+
+      <div data-only="en" hidden>
+        <p class="eyebrow">Legal information</p>
+        <h2>Privacy policy</h2>
+        <p class="upd">Effective from 3 November 2026.</p>
+
+        <p>This policy explains what personal data the Steampunk Lampe website collects, why, and what rights you have. Data is processed in line with the Personal Data Protection Law of the Republic of Serbia (Official Gazette of RS, No. 87/2018).</p>
+
+        <h3>Data controller</h3>
+        <p>Maljukan Nebojša, designer and maker of Steampunk Lampe.<br>Email: nebojsamaljukan@gmail.com</p>
+
+        <h3>What data I collect</h3>
+        <p>When you send a message through the contact form, I collect:</p>
+        <ul>
+          <li>your full name,</li>
+          <li>your email address,</li>
+          <li>the name or number of the lamp you are interested in (if you enter it),</li>
+          <li>the content of your message.</li>
+        </ul>
+        <p>The site does not ask for a phone number, address or payment details. Please do not include information in your message that the enquiry doesn't need.</p>
+
+        <h3>Why I use it</h3>
+        <p>I use your data only to reply to your enquiry and, if we reach an agreement, to arrange the purchase or making of a lamp. I don't use it for advertising, I don't sell it and I don't share it with third parties for marketing. The legal basis is your consent, given by sending the message, and taking steps at your request before a possible purchase.</p>
+
+        <h3>Who else has access</h3>
+        <p>The contact form runs on FormSubmit (formsubmit.co), which forwards your message to my Gmail address (Google). These services process the data only to deliver the message. The site also uses Google Fonts to display text, which means your browser sends your IP address to Google. Google and FormSubmit may store data on servers outside Serbia, under the safeguards those services apply.</p>
+
+        <h3>How long I keep it</h3>
+        <p>I keep messages as long as needed to resolve the enquiry and complete any purchase, and no longer than two years after our last correspondence. After that they are deleted. You can ask for earlier deletion at any time.</p>
+
+        <h3>Cookies and local storage</h3>
+        <p>The site uses no tracking or analytics cookies. Your browser only remembers the language you chose (Serbian or English), and that stays on your device.</p>
+
+        <h3>Your rights</h3>
+        <p>You have the right to access your data, have it corrected or deleted, restrict its processing, withdraw your consent and object to processing. Send requests to nebojsamaljukan@gmail.com. If you believe your data has been processed unlawfully, you can lodge a complaint with the Commissioner for Information of Public Importance and Personal Data Protection (www.poverenik.rs).</p>
+
+        <h3>Changes</h3>
+        <p>This policy may change. The current version is always published on this page with its effective date.</p>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <div class="foot-brand">
+      <img src="/logo.png" alt="Steampunk Lampe logo">
+      <p><span data-t="foot_line">Ručno izrađene steampunk lampe.</span><br><span class="mono">© <span id="year">2026</span> Maljukan Nebojša</span></p>
+    </div>
+    <div class="foot-links">
+      <a class="plain" href="#privatnost" data-t="nav_privacy">Politika privatnosti</a>
+      <a class="btn ghost" href="#kontakt" data-t="cta_contact">Pošalji upit</a>
+    </div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" id="lb-close" data-t="close">Zatvori ✕</button>
+  <img id="lb-img" alt="">
+</div>
+
+<script>
+/* ================= PODEŠAVANJA =================
+   INSTAGRAM: upisati pravi nalog.
+   KATALOG: lista slika; za novu lampu samo dodati putanju.
+================================================== */
+const INSTAGRAM = { url: "https://www.instagram.com/steampunklampe/", handle: "@steampunklampe" };
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/nebojsamaljukan@gmail.com";
+const LAMPS = [
+  "/lampa-01.jpg","/lampa-02.jpg","/lampa-03.jpg","/lampa-04.jpg","/lampa-05.jpg",
+  "/lampa-06.jpg","/lampa-07.jpg","/lampa-08.jpg","/lampa-09.jpg","/lampa-10.jpg"
+];
+
+const T = {
+  sr:{menu:"Meni",nav_home:"Početna",nav_catalog:"Katalog",nav_about:"O lampama",nav_contact:"Kontakt",
+    hero_eyebrow:"Ručni rad · Unikatni komadi",hero_lamps:"Lampe",hero_lead:"Ručno izrađene lampe sa karakterom",hero_author:"Autor i proizvođač:",
+    cta_catalog:"Pogledaj katalog",cta_contact:"Pošalji upit",
+    hero_alt:"Steampunk lampa sa termometrom, dve sijalice sa spiralnim vlaknom i drvenim kućištem okovanim metalom",
+    about_alt:"Podna steampunk lampa sa bakarnim cevima i natpisom STEAMPUNK",
+    about_eyebrow:"O lampama i autoru",
+    p1:"Steampunk lampe predstavljaju spoj industrijskog dizajna, umetnosti i duha prošlih vremena. Svaka lampa nastaje ručnim radom, uz pažljivo odabrane materijale, metalne cevi, zupčanike, lance, opruge i druge autentične detalje koji joj daju poseban karakter.",
+    p2:"Moje lampe nisu samo izvor svetlosti — one su unikatni dekorativni predmeti koji pričaju svoju priču. Svaka je drugačija, originalna i izrađena sa posebnom pažnjom, namenjena ljudima koji cene kreativnost, ručni rad i nesvakidašnji dizajn.",
+    spaces_eyebrow:"Gde pristaju",spaces_title:"Industrijski šarm, toplina i doza retro-futurizma",
+    p3:"Idealne su za domove, kancelarije, restorane, kafiće, radionice i sve prostore kojima želite da dodate industrijski šarm, toplinu i dozu retro-futurističkog stila.",
+    motto:"Ručno izrađeno. Jedinstveno osmišljeno. Stvoreno da privuče pogled.",light:"Upali drugačije svetlo!",
+    cat_eyebrow:"Katalog",cat_title:"Lampe iz radionice",price_note:"Cena na upit",ask:"Pošalji upit",lamp:"Lampa",
+    con_eyebrow:"Kontakt",con_title:"Pišite mi",con_text:"Za upit o lampi, ceni ili izradi, pošaljite poruku preko forme ili me kontaktirajte na Instagramu.",
+    f_name:"Ime i prezime",f_lamp:"Lampa (opciono)",f_msg:"Poruka",f_send:"Pošalji poruku",
+    f_sending:"Šaljem…",f_ok:"Hvala! Poruka je poslata, javiću vam se uskoro.",
+    f_err:"Poruka nije poslata. Pokušajte ponovo ili pišite direktno na nebojsamaljukan@gmail.com.",
+    f_missing:"Popunite ime, ispravan email i poruku.",
+    msg_prefix:"Zanima me lampa ",nav_privacy:"Politika privatnosti",privacy_link:"Politikom privatnosti",consent:"Slanjem poruke prihvatate da vaše podatke koristim samo za odgovor na upit, u skladu sa",foot_line:"Ručno izrađene steampunk lampe.",close:"Zatvori ✕"},
+  en:{menu:"Menu",nav_home:"Home",nav_catalog:"Catalogue",nav_about:"About",nav_contact:"Contact",
+    hero_eyebrow:"Handmade · One of a kind",hero_lamps:"Lamps",hero_lead:"Handmade lamps with character",hero_author:"Designed and made by",
+    cta_catalog:"View the catalogue",cta_contact:"Send an enquiry",
+    hero_alt:"Steampunk lamp with a thermometer, two spiral-filament bulbs and a metal-bound wooden case",
+    about_alt:"Steampunk floor lamp with copper pipes and a STEAMPUNK sign",
+    about_eyebrow:"The lamps and their maker",
+    p1:"Steampunk lamps bring together industrial design, art and the spirit of times past. Every lamp is made by hand from carefully chosen materials: metal pipes, gears, chains, springs and other authentic details that give each one its own character.",
+    p2:"My lamps are more than a source of light. They are one-of-a-kind decorative pieces that tell their own story. Each one is different, original and made with particular care, for people who value creativity, craftsmanship and unusual design.",
+    spaces_eyebrow:"Where they belong",spaces_title:"Industrial charm, warmth and a touch of retro-futurism",
+    p3:"They suit homes, offices, restaurants, cafés, workshops and any space where you want to add industrial charm, warmth and a touch of retro-futuristic style.",
+    motto:"Made by hand. Designed to be unique. Built to catch the eye.",light:"Switch on a different light!",
+    cat_eyebrow:"Catalogue",cat_title:"Lamps from the workshop",price_note:"Price on request",ask:"Send an enquiry",lamp:"Lamp",
+    con_eyebrow:"Contact",con_title:"Get in touch",con_text:"For questions about a lamp, its price or a commission, send a message using the form or reach me on Instagram.",
+    f_name:"Full name",f_lamp:"Lamp (optional)",f_msg:"Message",f_send:"Send message",
+    f_sending:"Sending…",f_ok:"Thank you! Your message has been sent and I'll get back to you soon.",
+    f_err:"The message wasn't sent. Please try again or write directly to nebojsamaljukan@gmail.com.",
+    f_missing:"Please fill in your name, a valid email and a message.",
+    msg_prefix:"I'm interested in lamp ",nav_privacy:"Privacy policy",privacy_link:"the Privacy policy",consent:"By sending a message you agree that I use your details only to reply to your enquiry, in line with",foot_line:"Handmade steampunk lamps.",close:"Close ✕"}
+};
+
+let lang = "sr";
+try { const s = localStorage.getItem("sl-lang"); if (s === "en" || s === "sr") lang = s; } catch(e){}
+const no = i => "Nº " + String(i+1).padStart(2,"0");
+
+function renderCatalog(){
+  document.getElementById("catalog").innerHTML = LAMPS.map((src,i)=>
+    `<figure class="item"><button class="zoom" type="button" data-zoom="${i}" aria-label="${T[lang].lamp} ${no(i)}"><img src="${src}" alt="${T[lang].lamp} ${no(i)}" loading="lazy"></button>
+     <figcaption class="foot"><span class="no">${no(i)}</span><button class="btn" type="button" data-ask="${i}">${T[lang].ask} →</button></figcaption></figure>`
+  ).join("");
+}
+function applyLang(){
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-t]").forEach(n=>{ const v=T[lang][n.dataset.t]; if(v) n.textContent=v; });
+  document.querySelectorAll("[data-t-alt]").forEach(n=>{ const v=T[lang][n.dataset.tAlt]; if(v) n.alt=v; });
+  document.querySelectorAll("[data-only]").forEach(n=>n.hidden = n.dataset.only!==lang);
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.lang===lang));
+  renderCatalog();
+}
+
+/* -------- pages -------- */
+const PAGES = ["pocetna","katalog","o-lampama","kontakt","privatnost"];
+function show(name){
+  if(!PAGES.includes(name)) name = "pocetna";
+  PAGES.forEach(p=>document.getElementById("page-"+p).hidden = p!==name);
+  document.querySelectorAll("nav a[data-go]").forEach(a=>{ if(a.dataset.go===name) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  document.getElementById("menu").classList.remove("open");
+  document.getElementById("burger").setAttribute("aria-expanded","false");
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+
+document.addEventListener("click",e=>{
+  const ask = e.target.closest("[data-ask]");
+  if(ask){
+    const nm = `${T[lang].lamp} ${no(+ask.dataset.ask)}`;
+    document.getElementById("f-lamp").value = nm;
+    const msg = document.getElementById("f-msg");
+    if(!msg.value.trim()) msg.value = T[lang].msg_prefix + no(+ask.dataset.ask) + ".\n\n";
+    if(location.hash !== "#kontakt") location.hash = "kontakt"; else show("kontakt");
+    setTimeout(()=>msg.focus(),60);
+    return;
+  }
+  const z = e.target.closest("[data-zoom]");
+  if(z){ document.getElementById("lb-img").src = LAMPS[+z.dataset.zoom]; document.getElementById("lightbox").hidden=false; return; }
+  const b = e.target.closest(".lang button");
+  if(b){ lang=b.dataset.lang; try{localStorage.setItem("sl-lang",lang)}catch(err){} applyLang(); }
+});
+const lbClose = ()=>document.getElementById("lightbox").hidden=true;
+document.getElementById("lb-close").addEventListener("click",lbClose);
+document.getElementById("lightbox").addEventListener("click",e=>{ if(e.target.id==="lightbox") lbClose(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") lbClose(); });
+document.getElementById("burger").addEventListener("click",function(){
+  const o=document.getElementById("menu").classList.toggle("open"); this.setAttribute("aria-expanded",o);
+});
+
+/* -------- form -------- */
+document.getElementById("contact-form").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const f=e.target, st=document.getElementById("f-status"), btn=document.getElementById("f-send");
+  const name=f.name.value.trim(), email=f.email.value.trim(), message=f.message.value.trim();
+  st.className="form-status";
+  if(!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !message){ st.textContent=T[lang].f_missing; st.classList.add("err"); return; }
+  btn.disabled=true; st.textContent=T[lang].f_sending;
+  try{
+    const r = await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify({name,email,lampa:f.lampa.value.trim(),message,_subject:"Upit sa sajta – Steampunk Lampe",_template:"table"})});
+    if(!r.ok) throw new Error();
+    st.textContent=T[lang].f_ok; st.classList.add("ok"); f.reset();
+  }catch(err){ st.textContent=T[lang].f_err; st.classList.add("err"); }
+  finally{ btn.disabled=false; }
+});
+
+document.getElementById("ig-link").href = INSTAGRAM.url;
+document.getElementById("ig-handle").textContent = INSTAGRAM.handle;
+document.getElementById("year").textContent = new Date().getFullYear();
+applyLang();
+show(location.hash.slice(1));
+</script>
+</body>
+</html>
