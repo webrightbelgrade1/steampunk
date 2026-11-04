@@ -193,8 +193,97 @@ textarea{min-height:150px;resize:vertical}
 .foot-links a.plain{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ash);text-decoration:none}
 .foot-links a.plain:hover{color:var(--brass-hi)}
 
+/* ---------- ornaments: shared ---------- */
+.ornament{position:absolute;pointer-events:none;z-index:0}
+.cog-spin{will-change:transform;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spin-r{to{transform:rotate(-360deg)}}
+
+/* ---------- ornaments: hero gear clusters ---------- */
+.hero{position:relative;overflow:hidden}
+.hero-gears{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.hero-gears svg{position:absolute;color:var(--brass);pointer-events:none}
+.hero-gears .g-tl-1{width:220px;height:220px;top:-80px;right:8%;opacity:.10;animation:spin 100s linear infinite}
+.hero-gears .g-tl-2{width:120px;height:120px;top:20px;right:22%;opacity:.08;animation:spin-r 55s linear infinite}
+.hero-gears .g-tl-3{width:70px;height:70px;top:100px;right:5%;opacity:.09;animation:spin 35s linear infinite}
+.hero-gears .g-bl-1{width:300px;height:300px;left:-120px;bottom:-150px;opacity:.07;animation:spin 90s linear infinite}
+.hero-gears .g-bl-2{width:160px;height:160px;left:110px;bottom:-60px;opacity:.08;animation:spin-r 50s linear infinite}
+.hero-gears .g-bl-3{width:90px;height:90px;left:250px;bottom:30px;opacity:.06;animation:spin 40s linear infinite}
+.hero > .wrap{position:relative;z-index:1}
+
+/* ---------- ornaments: section dividers ---------- */
+.divider{display:flex;align-items:center;gap:0;max-width:var(--wrap);margin:0 auto;padding:0 max(16px,env(safe-area-inset-left,0px));pointer-events:none}
+.divider .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--brass),transparent)}
+.divider .rivet-dot{width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--brass-hi),var(--copper) 70%);flex:none}
+.divider .gear-mid{width:22px;height:22px;color:var(--brass);flex:none;will-change:transform;animation:spin 80s linear infinite}
+.section-divider{border:0;padding:0;margin:0;position:relative}
+
+/* ---------- ornaments: pressure gauge ---------- */
+.gauge{position:relative;width:64px;height:64px;flex:none;pointer-events:none}
+.gauge svg{width:100%;height:100%;color:var(--brass)}
+.gauge .needle{transform-origin:32px 32px;will-change:transform;animation:gauge-swing 6s ease-in-out infinite}
+@keyframes gauge-swing{
+  0%,100%{transform:rotate(-22deg)}
+  50%{transform:rotate(28deg)}
+}
+.gauge-wrap{display:inline-flex;align-items:center;gap:14px}
+
+/* ---------- ornaments: filament flicker ---------- */
+.glow.flicker{animation:flicker 4.5s ease-in-out infinite}
+@keyframes flicker{
+  0%,100%{opacity:1;text-shadow:0 0 18px rgba(255,157,60,.55),0 0 42px rgba(255,157,60,.25)}
+  15%{opacity:.94;text-shadow:0 0 14px rgba(255,157,60,.48),0 0 36px rgba(255,157,60,.20)}
+  30%{opacity:1;text-shadow:0 0 20px rgba(255,157,60,.58),0 0 46px rgba(255,157,60,.27)}
+  55%{opacity:.96;text-shadow:0 0 16px rgba(255,157,60,.50),0 0 38px rgba(255,157,60,.22)}
+  75%{opacity:1;text-shadow:0 0 18px rgba(255,157,60,.55),0 0 42px rgba(255,157,60,.25)}
+}
+
+/* ---------- ornaments: catalogue cards ---------- */
+.item{position:relative;overflow:hidden}
+.item-rivets{position:absolute;inset:0;pointer-events:none;z-index:1}
+.item-rivets i{position:absolute;width:6px;height:6px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--brass-hi),var(--copper) 70%);opacity:.7}
+.item-rivets i:nth-child(1){top:4px;left:4px}
+.item-rivets i:nth-child(2){top:4px;right:4px}
+.item-rivets i:nth-child(3){bottom:4px;left:4px}
+.item-rivets i:nth-child(4){bottom:4px;right:4px}
+.item-cog{position:absolute;bottom:6px;right:6px;width:20px;height:20px;color:var(--brass);opacity:0;transform:scale(.6);transition:opacity .3s;pointer-events:none;z-index:2;will-change:transform}
+.item:hover .item-cog{opacity:.5;animation:spin 8s linear infinite}
+.item:hover{border-color:var(--brass)}
+
+/* ---------- ornaments: footer gears ---------- */
+.footer-gears{display:flex;gap:4px;justify-content:center;padding-bottom:10px;overflow:hidden;pointer-events:none}
+.footer-gears svg{width:24px;height:24px;color:var(--brass);opacity:.12;flex:none;will-change:transform}
+.footer-gears svg:nth-child(odd){animation:spin 70s linear infinite}
+.footer-gears svg:nth-child(even){animation:spin-r 70s linear infinite}
+
+/* ---------- ornaments: background pattern ---------- */
+.bg-gears{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;opacity:.035}
+.bg-gears svg{position:absolute;color:var(--brass)}
+.bg-gears .bg1{width:500px;height:500px;top:-100px;right:-120px;animation:spin 180s linear infinite}
+.bg-gears .bg2{width:380px;height:380px;bottom:-80px;left:-100px;animation:spin-r 150s linear infinite}
+.bg-gears .bg3{width:250px;height:250px;top:40%;left:60%;animation:spin 200s linear infinite}
+
+/* ---------- ornaments: intersection observer pause ---------- */
+.orn-paused{animation-play-state:paused !important}
+.orn-paused *{animation-play-state:paused !important}
+
+/* ---------- ornaments: reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  .hero-gears svg,.divider .gear-mid,.gauge .needle,.glow.flicker,.footer-gears svg,.bg-gears svg,.item-cog{animation:none}
+  .cog.a,.cog.b{animation:none}
+}
+
+/* ---------- ornaments: mobile (max-width:700px) ---------- */
+@media (max-width:700px){
+  .bg-gears{display:none}
+  .hero-gears .g-tl-1,.hero-gears .g-tl-2,.hero-gears .g-tl-3,.hero-gears .g-bl-2,.hero-gears .g-bl-3{display:none}
+  .footer-gears svg:nth-child(n+5){display:none}
+  .gauge{display:none}
+  .divider .rivet-dot{display:none}
+}
+
 /* ---------- footer ---------- */
-footer{border-top:1px solid var(--rivet);padding-block:36px}
+footer{position:relative;overflow:hidden;border-top:1px solid var(--rivet);padding-block:36px}
 .foot-row{display:flex;flex-wrap:wrap;gap:20px 28px;align-items:center;justify-content:space-between}
 .foot-brand{display:flex;align-items:center;gap:16px}
 .foot-brand img{height:96px;width:auto}
@@ -239,15 +328,21 @@ footer{border-top:1px solid var(--rivet);padding-block:36px}
 <!-- ================= POČETNA ================= -->
 <div class="page" id="page-pocetna">
   <section class="hero">
-    <svg class="cog a" aria-hidden="true"><use href="#gear"/></svg>
-    <svg class="cog b" aria-hidden="true"><use href="#gear"/></svg>
+    <div class="hero-gears" aria-hidden="true">
+      <svg class="g-tl-1 cog-spin"><use href="#gear"/></svg>
+      <svg class="g-tl-2 cog-spin"><use href="#gear"/></svg>
+      <svg class="g-tl-3 cog-spin"><use href="#gear"/></svg>
+      <svg class="g-bl-1 cog-spin"><use href="#gear"/></svg>
+      <svg class="g-bl-2 cog-spin"><use href="#gear"/></svg>
+      <svg class="g-bl-3 cog-spin"><use href="#gear"/></svg>
+    </div>
     <div class="wrap hero-grid">
       <div>
         <p class="eyebrow" data-t="hero_eyebrow">Ručni rad · Unikatni komadi</p>
         <h1>Steampunk <span data-t="hero_lamps">Lampe</span></h1>
         <p class="lead" data-t="hero_lead">Ručno izrađene lampe sa karakterom</p>
         <p class="author"><span data-t="hero_author">Autor i proizvođač:</span> <b>Maljukan Nebojša</b></p>
-        <p class="glow" data-t="light">Upali drugačije svetlo!</p>
+        <p class="glow flicker" data-t="light">Upali drugačije svetlo!</p>
         <div class="ctas">
           <a class="btn" href="#katalog"><span data-t="cta_catalog">Pogledaj katalog</span> →</a>
           <a class="btn ghost" href="#kontakt" data-t="cta_contact">Pošalji upit</a>
@@ -262,10 +357,15 @@ footer{border-top:1px solid var(--rivet);padding-block:36px}
     </div>
   </section>
 
+  <hr class="section-divider" aria-hidden="true"><div class="divider"><span class="rivet-dot"></span><span class="line"></span><svg class="gear-mid cog-spin"><use href="#gear"/></svg><span class="line"></span><span class="rivet-dot"></span></div>
+
   <section class="band where">
     <div class="wrap">
       <div class="head">
+        <div class="gauge-wrap">
         <p class="eyebrow" data-t="spaces_eyebrow">Gde pristaju</p>
+        <div class="gauge" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".5"/><circle cx="32" cy="32" r="26" fill="none" stroke="currentColor" stroke-width=".5" opacity=".3"/><g stroke="currentColor" stroke-width="1" opacity=".4"><line x1="32" y1="6" x2="32" y2="11"/><line x1="32" y1="53" x2="32" y2="58"/><line x1="6" y1="32" x2="11" y2="32"/><line x1="53" y1="32" x2="58" y2="32"/><line x1="14" y1="14" x2="17" y2="17"/><line x1="47" y1="47" x2="50" y2="50"/><line x1="14" y1="50" x2="17" y2="47"/><line x1="47" y1="17" x2="50" y2="14"/></g><circle cx="32" cy="32" r="3" fill="currentColor" opacity=".5"/><line class="needle" x1="32" y1="32" x2="32" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".7"/></svg></div>
+        </div>
         <h2 data-t="spaces_title">Industrijski šarm, toplina i doza retro-futurizma</h2>
         <p data-t="p3">Idealne su za domove, kancelarije, restorane, kafiće, radionice i sve prostore kojima želite da dodate industrijski šarm, toplinu i dozu retro-futurističkog stila.</p>
       </div>
@@ -278,12 +378,14 @@ footer{border-top:1px solid var(--rivet);padding-block:36px}
     </div>
   </section>
 
+  <hr class="section-divider" aria-hidden="true"><div class="divider"><span class="rivet-dot"></span><span class="line"></span><svg class="gear-mid cog-spin"><use href="#gear"/></svg><span class="line"></span><span class="rivet-dot"></span></div>
+
   <section class="motto">
     <div class="wrap">
       <p class="sig">Steampunk Lampe – Maljukan Nebojša</p>
       <div class="rule"><svg aria-hidden="true"><use href="#gear"/></svg></div>
       <blockquote data-t="motto">Ručno izrađeno. Jedinstveno osmišljeno. Stvoreno da privuče pogled.</blockquote>
-      <p class="glow" data-t="light">Upali drugačije svetlo!</p>
+      <p class="glow flicker" data-t="light">Upali drugačije svetlo!</p>
     </div>
   </section>
 </div>
@@ -453,6 +555,9 @@ footer{border-top:1px solid var(--rivet);padding-block:36px}
 </main>
 
 <footer>
+  <div class="footer-gears" aria-hidden="true">
+    <svg class="cog-spin"><use href="#gear"/></svg><svg class="cog-spin"><use href="#gear"/></svg><svg class="cog-spin"><use href="#gear"/></svg><svg class="cog-spin"><use href="#gear"/></svg><svg class="cog-spin"><use href="#gear"/></svg><svg class="cog-spin"><use href="#gear"/></svg><svg class="cog-spin"><use href="#gear"/></svg><svg class="cog-spin"><use href="#gear"/></svg>
+  </div>
   <div class="wrap foot-row">
     <div class="foot-brand">
       <img src="/logo.png" alt="Steampunk Lampe logo">
@@ -464,6 +569,12 @@ footer{border-top:1px solid var(--rivet);padding-block:36px}
     </div>
   </div>
 </footer>
+
+<div class="bg-gears" aria-hidden="true">
+  <svg class="bg1 cog-spin"><use href="#gear"/></svg>
+  <svg class="bg2 cog-spin"><use href="#gear"/></svg>
+  <svg class="bg3 cog-spin"><use href="#gear"/></svg>
+</div>
 
 <div class="lightbox" id="lightbox" hidden>
   <button type="button" id="lb-close" data-t="close">Zatvori ✕</button>
@@ -527,9 +638,10 @@ const no = i => "Nº " + String(i+1).padStart(2,"0");
 
 function renderCatalog(){
   document.getElementById("catalog").innerHTML = LAMPS.map((src,i)=>
-    `<figure class="item"><button class="zoom" type="button" data-zoom="${i}" aria-label="${T[lang].lamp} ${no(i)}"><img src="${src}" alt="${T[lang].lamp} ${no(i)}" loading="lazy"></button>
+    `<figure class="item"><div class="item-rivets" aria-hidden="true"><i></i><i></i><i></i><i></i></div><svg class="item-cog cog-spin" aria-hidden="true"><use href="#gear"/></svg><button class="zoom" type="button" data-zoom="${i}" aria-label="${T[lang].lamp} ${no(i)}"><img src="${src}" alt="${T[lang].lamp} ${no(i)}" loading="lazy"></button>
      <figcaption class="foot"><span class="no">${no(i)}</span><button class="btn" type="button" data-ask="${i}">${T[lang].ask} →</button></figcaption></figure>`
   ).join("");
+  setupOrnaments();
 }
 function applyLang(){
   document.documentElement.lang = lang;
@@ -596,6 +708,18 @@ document.getElementById("contact-form").addEventListener("submit", async e=>{
 document.getElementById("ig-link").href = INSTAGRAM.url;
 document.getElementById("ig-handle").textContent = INSTAGRAM.handle;
 document.getElementById("year").textContent = new Date().getFullYear();
+
+/* -------- ornaments: pause off-screen animations -------- */
+const ornObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    e.target.classList.toggle("orn-paused", !e.isIntersecting);
+  });
+},{rootMargin:"100px"});
+function setupOrnaments(){
+  document.querySelectorAll(".hero-gears,.footer-gears,.bg-gears,.gauge,.divider,.item,.motto").forEach(el=>ornObserver.observe(el));
+}
+setupOrnaments();
+
 applyLang();
 show(location.hash.slice(1));
 </script>
