@@ -591,8 +591,22 @@ const FORM_ENDPOINT = "https://formsubmit.co/ajax/nebojsamaljukan@gmail.com";
 const LAMPS = [
   "/lampa-01.jpg","/lampa-02.jpg","/lampa-03.jpg","/lampa-04.jpg","/lampa-05.jpg",
   "/lampa-06.jpg","/lampa-07.jpg","/lampa-08.jpg","/lampa-09.jpg","/lampa-10.jpg",
-  "/lampa-11.jpg","/lampa-12.jpg","/lampa-13.jpg","/lampa-14.jpg","/lampa-15.jpg","/lampa-16.jpg","/lampa-17.jpg","/lampa-18.jpg","/lampa-19.jpg","/lampa-20.jpg","/lampa-21.jpg"
+  "/lampa-11.jpg","/lampa-12.jpg","/lampa-13.jpg","/lampa-14.jpg","/lampa-15.jpg","/lampa-16.jpg","/lampa-17.jpg","/lampa-18.jpg","/lampa-19.jpg","/lampa-20.jpg","/lampa-21.jpg",
+  "/01-lampa-gas-maska-kanister.webp","/02-lampa-cev-manometar-ventil.webp","/03-lampa-mrezica-luk.webp","/05-lampa-reflektor-opruga.webp","/06-lampa-zupcanik-mrezica.webp","/07-lampa-tenk-edison.webp","/08-lampa-cev-slavina.webp","/09-lampa-drvena-kutija-zupcanici.webp","/10-lampa-zvono-patina.webp","/11-lampa-far-kutija.webp","/12-lampa-far-manometar.webp"
 ];
+const ALT = {
+  "/01-lampa-gas-maska-kanister.webp":"Steampunk lampa sa gas maskom i kanisterom",
+  "/02-lampa-cev-manometar-ventil.webp":"Steampunk lampa sa cevima, manometrom i ventilom",
+  "/03-lampa-mrezica-luk.webp":"Steampunk lampa sa mrežicom i lukom",
+  "/05-lampa-reflektor-opruga.webp":"Steampunk lampa reflektor sa oprugom",
+  "/06-lampa-zupcanik-mrezica.webp":"Steampunk lampa sa zupčanikom i mrežicom",
+  "/07-lampa-tenk-edison.webp":"Steampunk lampa sa tenk i Edison sijalicom",
+  "/08-lampa-cev-slavina.webp":"Steampunk lampa sa cevima i slavinom",
+  "/09-lampa-drvena-kutija-zupcanici.webp":"Steampunk lampa sa drvenom kutijom i zupčanicima",
+  "/10-lampa-zvono-patina.webp":"Steampunk lampa sa zvonom i patinom",
+  "/11-lampa-far-kutija.webp":"Steampunk lampa far u kutiji",
+  "/12-lampa-far-manometar.webp":"Steampunk lampa far sa manometrom"
+};
 
 const T = {
   sr:{menu:"Meni",nav_home:"Početna",nav_catalog:"Katalog",nav_about:"O lampama",nav_contact:"Kontakt",
@@ -638,10 +652,11 @@ try { const s = localStorage.getItem("sl-lang"); if (s === "en" || s === "sr") l
 const no = i => "Nº " + String(i+1).padStart(2,"0");
 
 function renderCatalog(){
-  document.getElementById("catalog").innerHTML = LAMPS.map((src,i)=>
-    `<figure class="item"><div class="item-rivets" aria-hidden="true"><i></i><i></i><i></i><i></i></div><svg class="item-cog cog-spin" aria-hidden="true"><use href="#gear"/></svg><button class="zoom" type="button" data-zoom="${i}" aria-label="${T[lang].lamp} ${no(i)}"><img src="${src}" alt="${T[lang].lamp} ${no(i)}" loading="lazy"></button>
-     <figcaption class="foot"><span class="no">${no(i)}</span><button class="btn" type="button" data-ask="${i}">${T[lang].ask} →</button></figcaption></figure>`
-  ).join("");
+  document.getElementById("catalog").innerHTML = LAMPS.map((src,i)=>{
+    const alt = ALT[src] || `${T[lang].lamp} ${no(i)}`;
+    return `<figure class="item"><div class="item-rivets" aria-hidden="true"><i></i><i></i><i></i><i></i></div><svg class="item-cog cog-spin" aria-hidden="true"><use href="#gear"/></svg><button class="zoom" type="button" data-zoom="${i}" aria-label="${T[lang].lamp} ${no(i)}"><img src="${src}" alt="${alt}" loading="lazy"></button>
+     <figcaption class="foot"><span class="no">${no(i)}</span><button class="btn" type="button" data-ask="${i}">${T[lang].ask} →</button></figcaption></figure>`;
+  }).join("");
   setupOrnaments();
 }
 function applyLang(){
